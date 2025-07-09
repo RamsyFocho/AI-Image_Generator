@@ -20,7 +20,7 @@ import multer from 'multer';
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
-  'http://localhost:5000/auth/google/callback'
+  `${process.env.BACKEND_URL}/auth/google/callback` // Use env var for backend URL
 );
 const SCOPES = ['https://www.googleapis.com/auth/photoslibrary.appendonly'];
 
@@ -202,7 +202,7 @@ app.get('/auth/google/callback', async (req, res) => {
   const { tokens } = await oauth2Client.getToken(code);
   oauth2Client.setCredentials(tokens);
   // Send token to frontend securely, or store in session
-  res.redirect(`http://localhost:3000?access_token=${tokens.access_token}`);
+  res.redirect(`${process.env.FRONTEND_URL}?access_token=${tokens.access_token}`); // Use env var for frontend URL
 });
 // Upload handler
 const upload = multer({ dest: 'uploads/' });
