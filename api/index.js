@@ -133,8 +133,8 @@ app.post("/api/transform", async (req, res) => {
     const imageBuffer = await streamToBuffer(output);
 
     // Optional: Save to disk for debugging
-    await writeFile("output.jpg", imageBuffer);
-    console.log("✅ Image saved locally");
+    // await writeFile("output.jpg", imageBuffer);
+    // console.log("✅ Image saved locally");
 
     // ✅ 4. Upload to Supabase
     const filePath = `${userId}/transform-${Date.now()}-${uuidv4()}.jpg`;
